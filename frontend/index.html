@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RescueConnect | Disaster Assistance</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ================= Header section ================= -->
+
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="#" class="brand">
+                <div class="brand-mark">R</div>
+                <div class="brand-text">
+                    <strong>
+                        RescueConnect
+                    </strong>
+                    <span>
+                        Local help. When it matters.
+                    </span>
+                </div>
+            </a>
+            <nav class="navigation">
+                <a href="#assistance">Find Help</a>
+                <a href="#resources">Resources</a>
+                <a href="#volunteers">Volunteers</a>
+            </nav>
+            <div class="network-status" id="networkStatus">
+            <span class="status-dot" id="networkStatusDot"></span>
+            <span id="networkStatusText">
+                Checking network...
+            </span>
+        </div>
+        </div>
+    </header>
+
+    <!-- ================= Hero section ================= -->
+
+    <main>
+        <section class="hero">
+            <div class="hero-image">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <span class="hero-kicker">
+                        COMMUNITY DISASTER SUPPORT
+                    </span>
+                    <h1>
+                        Help when it
+                        <span>
+                            matters most.
+                        </span>
+                    </h1>
+                    <p>Find nearby relief centers, essential supplies
+                        and people ready to help in your area.</p>
+                </div>
+            </div>
+
+            <!-- ================= Search section ================= -->
+
+            <div class="search-wrapper" id="assistance">
+                <div class="search-content">
+                    <div class="search-heading">
+                        <span>FIND LOCAL ASSISTANCE</span>
+                        <h2>Where do you need help?</h2>
+                    </div>
+
+                    <!-- Search row -->
+
+                    <div class="search-row">
+                        <div class="search-input">
+                            <span class="search-icon">⌕</span>
+                            <input
+                                type="text"
+                                id="area"
+                                list="areaSuggestions"
+                                placeholder="Search your area..."
+                                autocomplete="off">
+                            <datalist id="areaSuggestions"></datalist>
+                        </div>
+                        <button id="findHelpBtn" class="primary-button" type="button">
+                            Find help
+                            <span>→</span>
+                        </button>
+                    </div>
+
+                    <!-- Search hint -->
+
+                    <p class="search-hint">Search by area name, such as
+                        Kukatpally, Madhapur or Uppal.</p>
+
+                    <!-- ================= Inline error ================= -->
+
+                    <div id="searchError" class="search-error hidden">
+                        <div class="search-error-icon">!</div>
+                        <div class="search-error-content">
+                            <strong id="searchErrorTitle">Please enter an area</strong>
+                            <p id="searchErrorMessage">Enter an area name to find available assistance.</p>
+                        </div>
+                        <button
+                            type="button"
+                            id="closeSearchError"
+                            class="search-error-close"
+                            aria-label="Close">×</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= Loading ================= -->
+
+        <section class="state-section hidden" id="loadingState">
+            <div class="state-box">
+                <div class="loader"></div>
+                <div>
+                    <h3>Finding available help</h3>
+                    <p>Checking shelters, resources and volunteers in your area...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= Empty state ================= -->
+        <section class="empty-section" id="emptyState">
+            <div class="page-container">
+                <div class="empty-content">
+                    <div class="empty-line"></div>
+                    <div>
+                        <span class="section-kicker">
+                            READY WHEN YOU ARE
+                        </span>
+                        <h2>Search your area to see available help.</h2>
+                        <p>
+                            RescueConnect brings local disaster
+                            assistance together so you can find
+                            the support you need without searching
+                            in multiple places.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= Results ================= -->
+
+        <section class="results-section hidden" id="resultsSection">
+            <div class="page-container">
+                
+                <!-- results header -->
+                <div class="results-header">
+                    <div>
+                        <span class="section-kicker">
+                            ASSISTANCE FOUND
+                        </span>
+                        <h2 id="areaTitle">Assistance near you</h2>
+                        <p id="areaDescription">
+                            Available disaster support
+                            in your selected area.
+                        </p>
+                    </div>
+                    <div class="location-status">
+                        <span class="status-dot"></span>
+                        Area found
+                    </div>
+                </div>
+
+                <!-- Summary -->
+                <div class="summary-strip">
+                    <div class="summary-item">
+                        <strong id="shelterCount">0</strong>
+                        <span>Relief centers</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong id="resourceCount">0</strong>
+                        <span>Resources</span>
+                    </div>
+                    <div class="summary-item">
+                        <strong id="volunteerCount">0</strong>
+                        <span>People helping</span>
+                    </div>
+                </div>
+
+                <!-- ================= Relief centers ================= -->
+
+                <div class="results-block" id="reliefCenters">
+                    <div class="block-header">
+                        <div>
+                            <span class="section-kicker">
+                                SAFE PLACES
+                            </span>
+                            <h2>Relief centers</h2>
+                        </div>
+
+                        <span id="shelterSectionCount" class="result-count">0 locations</span>
+                    </div>
+
+
+                    <div id="shelterContainer" class="shelter-list"></div>
+                </div>
+
+                <!-- ================= Resources ================= -->
+
+                <div class="results-block" id="resources">
+
+                    <div class="block-header">
+
+                        <div>
+                            <span class="section-kicker">
+                                ESSENTIAL SUPPLIES
+                            </span>
+                            <h2>
+                                Available resources
+                            </h2>
+                        </div>
+                    </div>
+                    <div id="resourceContainer" class="resource-grid"></div>
+                </div>
+
+                <!-- ================= Volunteers ================= -->
+
+                <div class="results-block" id="volunteers">
+                    <div class="block-header">
+                        <div>
+                            <span class="section-kicker">
+                                COMMUNITY SUPPORT
+                            </span>
+                            <h2>
+                                People ready to help
+                            </h2>
+                        </div>
+                    </div>
+                    <div id="volunteerContainer" class="volunteer-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= Quick access ================= -->
+
+        <section class="quick-section">
+            <div class="page-container">
+                <div class="quick-heading">
+                    <span class="section-kicker">
+                        START HERE
+                    </span>
+                    <h2>
+                        What are you looking for?
+                    </h2>
+                </div>
+                <div class="quick-links">
+                    <a href="#reliefCenters" class="quick-link">
+
+                        <div class="quick-icon">
+                            <span>⌂</span>
+                        </div>
+                        <div>
+                            <strong>
+                                Relief centers
+                            </strong>
+                            <p>Find safe places nearby</p>
+
+                        </div>
+                        <span class="quick-arrow">→</span>
+                    </a>
+
+                    <a href="#resources" class="quick-link">
+
+                        <div class="quick-icon supply">
+                            <span>+</span>
+                        </div>
+
+                        <div>
+                            <strong>
+                                Essential supplies
+                            </strong>
+                            <p>Check available resources</p>
+                        </div>
+                        <span class="quick-arrow">→</span>
+                    </a>
+
+                    <a href="#volunteers" class="quick-link">
+                        <div class="quick-icon people">
+                            <span>○</span>
+                        </div>
+
+                        <div>
+                            <strong>
+                                People helping
+                            </strong>
+                            <p>See community support</p>
+                        </div>
+                        <span class="quick-arrow">→</span>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= Community section ================= -->
+
+        <section class="community-section">
+            <div class="community-inner">
+                <div class="community-image">
+                    <div class="community-image-overlay"></div>
+                </div>
+                <div class="community-copy">
+                    <span class="section-kicker">COMMUNITIES RESPOND TOGETHER</span>
+                    <h2>
+                        Sometimes the most important help is nearby.
+                    </h2>
+                    <p>
+                        During a disaster, knowing where to find
+                        a safe place, essential supplies or someone
+                        who can help can make a real difference.
+                    </p>
+                    <p>
+                        RescueConnect brings that information together
+                        in one simple place for affected communities.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= cta section ================= -->
+
+        <section class="volunteer-cta">
+
+            <div class="cta-inner">
+                <div>
+                    <span class="section-kicker">
+                        WANT TO HELP?
+                    </span>
+                    <h2>
+                        Strong communities look after each other.
+                    </h2>
+                    <p>
+                        Share your time, skills or resources with
+                        people who may need them.
+                    </p>
+                </div>
+                <a href="#volunteers" class="secondary-button">
+                    Join the community
+                    <span>→</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================= Footer section ================= -->
+
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+            <div class="footer-brand">
+
+                <div class="brand-mark">RC</div>
+                <div>
+                    <strong>RescueConnect</strong>
+                    <p>Connecting communities with available disaster assistance.</p>
+                </div>
+            </div>
+
+            <div class="footer-note">Built for communities in need.</div>
+        </div>
+
+    </footer>
+    <script src="script.js"></script>
+
+</body>
+</html>
