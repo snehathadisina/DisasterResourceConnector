@@ -71,8 +71,10 @@ const closeSearchError =
 // API
 // ==========================================
 
-const API_BASE_URL =
-    "http://localhost:8080";
+// const API_BASE_URL =
+//     "http://localhost:8080";
+const API_BASE_URL = 
+       "https://disasterresourceconnector-production.up.railway.app";
 
 // ==========================================
 // NETWORK STATUS
