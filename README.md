@@ -6,7 +6,7 @@ medical supplies) are actually available there right now, and see which
 volunteers with relevant skills are on-site — all in one search.
 
 **Live demo:** https://disaster-resource-connector.vercel.app/
-**Backend API:** https://disasterresourceconnector-production.up.railway.app
+**Backend API:** https://disasterresourceconnector-production.up.railway.app/api/areas (example endpoint — the bare root has no mapping and returns 404 by design)
 **Screen recording:** https://drive.google.com/file/d/1beWJh7HuH2pHO5OtduvehDurx0vlkaOH/view?usp=sharing
 
 ---
